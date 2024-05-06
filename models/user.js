@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
+      required: false,
     },
     photoURL: {
       type: String,
-      required: true,
+      required: false,
     },
     uid: {
       type: String,

@@ -9,7 +9,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 const app = express();
 const server = http.createServer(app);
-app.use(cors({ origin: "https://chat-app-alpha-rouge.vercel.app" }));
+app.use(cors({ origin: process.env.ALLOW_FOR_API }));
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ extends: true, limit: "30mb" }));
 mongoose
@@ -27,7 +27,7 @@ app.use("/user", user);
 app.use("/message", message);
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-app-alpha-rouge.vercel.app",
+    origin: process.env.ALLOW_FOR_API,
     credentials: true,
   },
 });
@@ -60,8 +60,6 @@ io.on("connection", (socket) => {
 
       console.log("send-online-user: ", userInOnline);
     }
-    console.log(onlineUser);
-    console.log(userInOnline);
   });
   socket.on("user-offline", (data) => {
     userInOnline = userInOnline.filter((value) => value !== data.uid);
