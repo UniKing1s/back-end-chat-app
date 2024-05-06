@@ -9,7 +9,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 const app = express();
 const server = http.createServer(app);
-app.use(cors());
+app.use(cors({ origin: "https://chat-app-alpha-rouge.vercel.app" }));
 app.use(bodyParser.json({ limit: "30mb" }));
 app.use(bodyParser.urlencoded({ extends: true, limit: "30mb" }));
 mongoose
@@ -17,7 +17,7 @@ mongoose
   .then(() => {
     console.log("connect to db success");
     server.listen(5000, () => {
-      console.log("Server running at http://localhost:5000");
+      console.log("Server running");
     });
   })
   .catch((error) => {
@@ -27,7 +27,7 @@ app.use("/user", user);
 app.use("/message", message);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://chat-app-alpha-rouge.vercel.app",
     credentials: true,
   },
 });
